@@ -14,7 +14,7 @@ VIIRS_EPOCH = datetime(1958, 1, 1)
 MODIS_EPOCH = datetime(1993, 1, 1)
 UNIX_EPOCH  = datetime(1970, 1, 1)
 
-DEFAULT_EPOCH = UNIX_EPOCH
+NTP_EPOCH = datetime(1900, 1, 1)
 
 # Use the leap-seconds file included with this package if none is specified
 from pkg_resources import resource_filename
@@ -33,7 +33,7 @@ class Grain(object):
       li=line.strip()
       if not li.startswith('#'):
         pieces = li.split()
-        leap_time = DEFAULT_EPOCH + timedelta(seconds=int(pieces[0]))
+        leap_time = NTP_EPOCH + timedelta(seconds=int(pieces[0]))
         leap_times.append(leap_time)
         offset = int(pieces[1])
         offsets.append(offset)
@@ -57,7 +57,7 @@ class Grain(object):
     return offset
 
 
-  def utc2tai(self, utc, epoch=DEFAULT_EPOCH):
+  def utc2tai(self, utc, epoch):
     """
     Takes datetime object (utc) and returns TAI seconds since given epoch. 
     """
@@ -67,7 +67,7 @@ class Grain(object):
     return seconds_since_epoch
 
 
-  def tai2utc(self, seconds_since_epoch, epoch=DEFAULT_EPOCH):
+  def tai2utc(self, seconds_since_epoch, epoch):
     """
     Takes TAI seconds since given epoch and returns a datetime.
     """
@@ -84,7 +84,7 @@ def test():
   ls_file = open('leap-seconds')
   g = Grain(ls_file)
   now = datetime.utcnow()
-  print "test TAI times, seconds since DEFAULT_EPOCH: ", DEFAULT_EPOCH
+  print "test TAI times, seconds since NTP_EPOCH: ", NTP_EPOCH
   print "VIIRS EPOCH: ", g.utc2tai(VIIRS_EPOCH), VIIRS_EPOCH
   print "MODIS EPOCH: ", g.utc2tai(MODIS_EPOCH), MODIS_EPOCH
   print "NOW: ", g.utc2tai(now), now
