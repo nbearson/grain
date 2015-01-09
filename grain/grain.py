@@ -4,7 +4,7 @@
 Author: Nick Bearson, nickb@ssec.wisc.edu
 Copyright (c) 2014 University of Wisconsin SSEC. All rights reserved.
 
-Get new leap second files @ ftp://time.nist.gov/pub/leap-seconds.<somenumbers>
+Get new leap second files @ ftp://time.nist.gov/pub/leap-seconds.list
 """
 
 from datetime import datetime, timedelta
