@@ -28,7 +28,9 @@ class Grain(object):
   """An object for parsing and utilizing the information contained in a leap second file.
   
   Initialize with a file object, ie: the result of open(...)"""
-  def __init__(self, leap_second_file=open(DEFAULT_LEAP_SECONDS)):
+  def __init__(self, leap_second_file=None):
+    if leap_second_file is None:
+      leap_second_file = open(DEFAULT_LEAP_SECONDS)
     leap_times = []
     offsets = []
     for line in leap_second_file:
