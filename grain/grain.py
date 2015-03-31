@@ -16,6 +16,8 @@ UNIX_EPOCH  = datetime(1970, 1, 1)
 
 NTP_EPOCH = datetime(1900, 1, 1)
 
+DEFAULT_EPOCH = NTP_EPOCH
+
 # Use the leap-seconds file included with this package if none is specified
 from pkg_resources import resource_filename
 DEFAULT_LEAP_SECONDS = resource_filename(__name__, 'leap-seconds')
@@ -57,7 +59,7 @@ class Grain(object):
     return offset
 
 
-  def utc2tai(self, utc, epoch):
+  def utc2tai(self, utc, epoch=DEFAULT_EPOCH):
     """
     Takes datetime object (utc) and returns TAI seconds since given epoch. 
     """
@@ -67,7 +69,7 @@ class Grain(object):
     return seconds_since_epoch
 
 
-  def tai2utc(self, seconds_since_epoch, epoch):
+  def tai2utc(self, seconds_since_epoch, epoch=DEFAULT_EPOCH):
     """
     Takes TAI seconds since given epoch and returns a datetime.
     """
