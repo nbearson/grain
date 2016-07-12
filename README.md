@@ -2,6 +2,7 @@ Grain is a super simple UTC<->TAI conversion package, made specifically for hand
 
 Requires:
  * setuptools
+ * updates when new leap second files come out
 
 Example usage:
 ```python
