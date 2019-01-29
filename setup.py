@@ -1,4 +1,3 @@
-
 from setuptools import setup, find_packages
 
 setup(name='grain',
@@ -9,5 +8,6 @@ setup(name='grain',
       packages=find_packages('.'),
       install_requires=[],
       include_package_data = True,
-      package_data = { 'grain' : ['leap-seconds'] },
+      package_data = { 'grain' : ['leap-seconds.list'] },
       )
+

@@ -4,7 +4,7 @@
 Author: Nick Bearson, nickb@ssec.wisc.edu
 Copyright (c) 2014 University of Wisconsin SSEC. All rights reserved.
 
-Get new leap second files @ ftp://time.nist.gov/pub/leap-seconds.list
+Get new leap second files @ https://www.ietf.org/timezones/data/leap-seconds.list
 """
 
 from datetime import datetime, timedelta
@@ -19,7 +19,7 @@ NTP_EPOCH = datetime(1900, 1, 1)
 DEFAULT_EPOCH = NTP_EPOCH
 
 # Use the leap-seconds file included with this package if none is specified
-DEFAULT_LEAP_SECONDS = resource_filename(__name__, 'leap-seconds')
+DEFAULT_LEAP_SECONDS = resource_filename(__name__, 'leap-seconds.list')
 
 
 class Grain(object):
@@ -66,8 +66,7 @@ class Grain(object):
         """
         offset = self._leaps_between(epoch, utc)
         tai = utc - epoch
-        seconds_since_epoch = (tai.days * (24 * 60 * 60)
-                               ) + tai.seconds + offset
+        seconds_since_epoch = (tai.days * (24 * 60 * 60)) + tai.seconds + offset
         return seconds_since_epoch
 
     def tai2utc(self, seconds_since_epoch, epoch=DEFAULT_EPOCH):
@@ -84,7 +83,7 @@ class Grain(object):
 
 
 def test():
-    ls_file = open('leap-seconds')
+    ls_file = open('leap-seconds.list')
     g = Grain(ls_file)
     now = datetime.utcnow()
     print('test TAI times, seconds since NTP_EPOCH:', NTP_EPOCH)
