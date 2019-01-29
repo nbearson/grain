@@ -46,7 +46,7 @@ class Grain(object):
     # things easier to deal with later!
     offsets.insert(0,0) # add 0 to the start so our math works in the next line
     offsets = [j-i for i, j in zip(offsets[:-1], offsets[1:])]
-    self.leaps = zip(leap_times, offsets)
+    self.leaps = list(zip(leap_times, offsets))
 
 
 
@@ -55,7 +55,7 @@ class Grain(object):
     Counts the number of leap seconds that have occurred between two datetimes
     """
     if date1 > date2:
-      raise RuntimeError, "date1 > date2"
+      raise RuntimeError('date1 > date2')
     between_times = [i for i in self.leaps if date1 <= i[0] and i[0] <= date2] # FIXME: should these be > or >=?
     offset = sum(leap[1] for leap in between_times) # sum all the offsets in self.leaps
     return offset
@@ -88,10 +88,10 @@ def test():
   ls_file = open('leap-seconds')
   g = Grain(ls_file)
   now = datetime.utcnow()
-  print "test TAI times, seconds since NTP_EPOCH: ", NTP_EPOCH
-  print "VIIRS EPOCH: ", g.utc2tai(VIIRS_EPOCH), VIIRS_EPOCH
-  print "MODIS EPOCH: ", g.utc2tai(MODIS_EPOCH), MODIS_EPOCH
-  print "NOW: ", g.utc2tai(now), now
+  print('test TAI times, seconds since NTP_EPOCH:', NTP_EPOCH)
+  print('VIIRS EPOCH:', g.utc2tai(VIIRS_EPOCH), VIIRS_EPOCH)
+  print('MODIS EPOCH:', g.utc2tai(MODIS_EPOCH), MODIS_EPOCH)
+  print('NOW:', g.utc2tai(now), now)
 
 
 if __name__ == '__main__':
